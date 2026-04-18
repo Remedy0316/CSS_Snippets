@@ -1,0 +1,21 @@
+.css-preset-manager {
+    margin-bottom: 10px;
+}
+
+.css-preset-manager label {
+    display: block;
+    margin-bottom: 4px;
+    font-weight: bold;
+    font-size: 0.9em;
+}
+
+.css-preset-manager-row {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.css-preset-manager-row .css-preset-select {
+    flex: 1;
+    min-width: 0;
+}
