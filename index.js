@@ -222,11 +222,9 @@ function injectUI() {
                 </select>
                 <div id="css_preset_save" class="menu_button menu_button_icon" title="Save as new preset">
                     <i class="fa-solid fa-floppy-disk"></i>
-                    <span>Save</span>
                 </div>
                 <div id="css_preset_update" class="menu_button menu_button_icon" title="Update selected preset with current CSS">
                     <i class="fa-solid fa-arrows-rotate"></i>
-                    <span>Update</span>
                 </div>
                 <div id="css_preset_rename" class="menu_button menu_button_icon" title="Rename selected preset">
                     <i class="fa-solid fa-pencil"></i>
