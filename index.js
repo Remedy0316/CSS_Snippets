@@ -103,7 +103,7 @@ async function onPresetSelect() {
     saveSettings();
 }
 
-async function onSavePreset() {
+async function onSaveNewPreset() {
     const settings = getSettings();
     const css = getCurrentCSS();
 
@@ -113,18 +113,15 @@ async function onSavePreset() {
     }
 
     const name = await promptInput(
-        'Save CSS Preset',
+        'Save New CSS Preset',
         'Enter a name for this preset:',
-        settings.selectedPreset || '',
+        '',
     );
     if (!name) return;
 
     if (Object.prototype.hasOwnProperty.call(settings.presets, name)) {
-        const ok = await promptConfirm(
-            'Overwrite Preset',
-            `A preset named "${name}" already exists. Overwrite it?`,
-        );
-        if (!ok) return;
+        toastr.error(`A preset named "${name}" already exists. Use Update to overwrite.`);
+        return;
     }
 
     settings.presets[name] = css;
@@ -132,6 +129,26 @@ async function onSavePreset() {
     saveSettings();
     updateDropdown();
     toastr.success(`Preset "${name}" saved.`);
+}
+
+async function onUpdatePreset() {
+    const settings = getSettings();
+    const name = String($('#css_preset_select').val() || '');
+
+    if (!name) {
+        toastr.warning('Select a preset to update.');
+        return;
+    }
+
+    const css = getCurrentCSS();
+    if (!css.trim()) {
+        toastr.warning('Custom CSS is empty — nothing to update.');
+        return;
+    }
+
+    settings.presets[name] = css;
+    saveSettings();
+    toastr.success(`Preset "${name}" updated.`);
 }
 
 async function onRenamePreset() {
@@ -203,9 +220,13 @@ function injectUI() {
                 <select id="css_preset_select" class="text_pole css-preset-select">
                     <option value="">-- No Preset --</option>
                 </select>
-                <div id="css_preset_save" class="menu_button menu_button_icon" title="Save current CSS as preset">
+                <div id="css_preset_save" class="menu_button menu_button_icon" title="Save as new preset">
                     <i class="fa-solid fa-floppy-disk"></i>
                     <span>Save</span>
+                </div>
+                <div id="css_preset_update" class="menu_button menu_button_icon" title="Update selected preset with current CSS">
+                    <i class="fa-solid fa-arrows-rotate"></i>
+                    <span>Update</span>
                 </div>
                 <div id="css_preset_rename" class="menu_button menu_button_icon" title="Rename selected preset">
                     <i class="fa-solid fa-pencil"></i>
@@ -225,7 +246,8 @@ function injectUI() {
 
     // Bind events
     $('#css_preset_select').on('change', onPresetSelect);
-    $('#css_preset_save').on('click', onSavePreset);
+    $('#css_preset_save').on('click', onSaveNewPreset);
+    $('#css_preset_update').on('click', onUpdatePreset);
     $('#css_preset_rename').on('click', onRenamePreset);
     $('#css_preset_delete').on('click', onDeletePreset);
 
