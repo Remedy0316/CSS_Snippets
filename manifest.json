@@ -6,7 +6,10 @@
     "js": "index.js",
     "css": "style.css",
     "author": "Remedy",
-    "version": "1.0.0",
+    "version": "1.1.0",
     "homePage": "https://github.com/Remedy0316/CSS_Snippets",
-    "auto_update": true
+    "auto_update": true,
+    "hooks": {
+        "clean": "cleanupExtensionData"
+    }
 }

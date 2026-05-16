@@ -27,6 +27,13 @@ Or manually copy this folder into `data/<user>/extensions/third-party/`.
 
 > **Tip:** Save your current CSS as a preset before loading a different one, since selecting a preset replaces the textarea content.
 
+## Uninstall / Cleanup
+
+On SillyTavern **1.18.0 or later**, this extension declares a `clean` hook. You can:
+
+- Click the 🧹 broom button next to the extension in **Extensions** to wipe all saved presets without uninstalling, or
+- Check **"Also clean up extension data"** in the delete confirmation to remove presets at the same time.
+
 ## License
 
 Licensed under the [GNU Affero General Public License v3.0 (AGPL-3.0)](https://www.gnu.org/licenses/agpl-3.0.html), same as SillyTavern.

@@ -269,3 +269,18 @@ jQuery(async () => {
     // Stop watching after 30 s to avoid leaks if the block never appears.
     setTimeout(() => observer.disconnect(), 30000);
 });
+
+// ── Manifest "clean" hook (SillyTavern 1.18.0+) ─────────────
+// Invoked by ST when the user clicks the broom button or opts to clean up
+// data on uninstall. Wipes all stored presets for this extension.
+export function cleanupExtensionData() {
+    try {
+        const { extensionSettings } = SillyTavern.getContext();
+        if (extensionSettings && extensionSettings[MODULE_NAME]) {
+            delete extensionSettings[MODULE_NAME];
+            saveSettings();
+        }
+    } catch (e) {
+        console.error('[CSS Preset Manager] cleanupExtensionData failed:', e);
+    }
+}
